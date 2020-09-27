@@ -153,7 +153,6 @@ function draw() {
     clicat=0;
     noStroke();
     temps = 0;
-    temps2 = 0;
   }
   if (escena_actual == 1) { //canvi d'escena
     
@@ -207,15 +206,21 @@ function draw() {
         rect(200,425,60,60); 
       }   
     }   
-  
-    textSize(70);
-    fill(15, 12, 7);
-    textFont(bauhaus);
-    text(text_gran,20,610);
-    text(text_gran2, 290, 645);
-    textSize(30);
-    text(text_petit, 255, 580);
-    text(text_petit2, 20, 645);
+    
+    else if (temps>=214) {
+      textSize(70);
+      fill(15, 12, 7);
+      textFont(bauhaus);
+      text(text_gran,20,610);
+      text(text_gran2, 290, 645);
+      textSize(30);
+      text(text_petit, 255, 580);
+      text(text_petit2, 20, 645);
+    }
+    
+    else{
+      escena_actual == 0;      
+    }
   }
   
   else{
