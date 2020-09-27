@@ -1,14 +1,15 @@
 var escena_actual = 0;
-let arrayquadratsverm = [];
-let arrayquadratsgr = [];
-let arrayquadratsbl = [];
+
+let arrayquadratsverm;
+let arrayquadratsgr;
+let arrayquadratsbl;
+let arrayquadrats;
 let clicat = 0;
 let temps = 0;
 
+let x;
 //random
-let randomColor;
-     
-
+let randomColor;    
 
 let text_gran = "BAUHAUS";
 let text_petit = "AUSSTELLUNG";
@@ -24,6 +25,12 @@ function preload(){
 function setup() {
   createCanvas(400, 700);
   background(236, 221, 190);
+  x = -70;
+  arrayquadratsverm = [];
+  arrayquadratsgr = [];
+  arrayquadratsbl = [];
+  //arrayquadrats = [];
+  
 
   //---- Crear Quadrats ---- //
     
@@ -98,13 +105,11 @@ function setup() {
     gr = new quadrat(200,425,60,60);
     arrayquadratsgr.push(gr);
   
-    
   }
   //12
   for (let i = 0; i < 1; i++) {
     bl = new quadrat(325,425,60,60);
     arrayquadratsbl.push(bl);
-    
     
   }
 }
@@ -116,7 +121,6 @@ function mouseClicked(){
 
     if(clicat==0){
       
-      temps=0;
       console.log("clicat");
       escena_actual = 1;
       clicat=clicat+1;
@@ -127,27 +131,17 @@ function mouseClicked(){
 // Quan el movil es mou:
 function deviceShaken() {
 
-    if(clicat==0){
-      temps=0;
-     
-      escena_actual = 1;
-      clicat=clicat+1;
-      //Restart animació:
-    }
+  if(clicat==0){
+    temps=0;
+    escena_actual = 1;
+    clicat=clicat+1;
+    //Tornar a començar animació:
+  }
   if(clicat==1 ){
-    background('#000000');
     clicat=0;
     escena_actual = 0; 
     setup();
     temps=0;
-   // transparencia=0;
-    /*bola=1;
-    lastran=5;
-    posiciox=0;
-    posicioy=0;
-    posicioBx=200;
-    posicioBy=0;
-    transparenciaLletres=0;*/
     clicat=0;
   }
 }
@@ -155,25 +149,25 @@ function deviceShaken() {
 function draw() {
   if(clicat == 1 && mouseIsPressed){
     escena_actual = 0;
-    //setup();
+    setup();
     clicat=0;
     noStroke();
     temps = 0;
+    temps2 = 0;
   }
   if (escena_actual == 1) { //canvi d'escena
+    
     if (temps < 240) { // Li diem que quan arribi al temps aquest es pari
       for (let i = 0; i < arrayquadratsverm.length; i++) {
-        temps = temps+0.5;
+        temps = temps+0.5;  
         fill(0);
         noStroke();
         arrayquadratsverm[i].display(); //Cridem a la funcio display que crea el quadrat
         arrayquadratsverm[i].velocitat(); // Cridem a la funcio velocitat que va posant quadrats a les coordenades que li indiquem
-        
         randomColor = color(random(255),random(255),random(255)); //cambia el color a random
         fill(randomColor);
-
+        
         //fill(193, 50, 44) //Si desactivem la linia de sobre i activem aquesta amb podem veure el poster generat amb els colors que hi ha al poster original
-
         noStroke();
         rect(75,50,60,60);
         rect(325,175,60,60);
@@ -181,6 +175,7 @@ function draw() {
         rect(75,425,60,60);
         console.log(i);
       }
+
       for (let i = 0; i < arrayquadratsbl.length; i++) {
         fill(0);
         noStroke();
@@ -209,14 +204,10 @@ function draw() {
         rect(200,50,60,60);
         rect(75,175,60,60);
         rect(325,300,60,60);
-        rect(200,425,60,60);
-        
-        
-      }
-    
-          
-    }
-    //setup();
+        rect(200,425,60,60); 
+      }   
+    }   
+  
     textSize(70);
     fill(15, 12, 7);
     textFont(bauhaus);
@@ -230,7 +221,6 @@ function draw() {
   else{
     fill(255);
   }
-
 }
 
 //-------Aqui es crea la classe quadrat-------
@@ -242,7 +232,6 @@ class quadrat{
     this.y = y;
     this.a = a;
     this.b = b;
-    
   }
   
   display(){
@@ -253,5 +242,5 @@ class quadrat{
     this.y = this.y + 0.5;
     this.x = this.x - 0.5;
   }
-
 }
+
